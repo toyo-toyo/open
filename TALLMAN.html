@@ -10,15 +10,15 @@ var vue_example = new Vue({
 
   template: `<div>
     <span>3桁の数値をカンマ区切りで入力し、チェックボタンを押下してください。</span>
-    <input @input="validate" v-model="myTicket" style="width:80%" />
+    <input @input="validate" v-on:keyup.enter="check()" v-model="myTicket" style="width:80%" />
     <button v-on:click="check()">チェック</button>
     <div v-html="message"></div>
     </div>`,
 
   data: {
     message: '',
-    myTicket: '096,097,098,104,110,123,141,178,186,187,265,300,336,337,452,470,496,503,509,660',
-//    myTicket: '',
+//    myTicket: '096,097,098,104,110,123,141,178,186,187,265,300,336,337,452,470,496,503,509,660',
+    myTicket: '',
     lottery: [
               {'name': 'WILD FLAKE probio ミニ', 'numbers': ['513',]},
               {'name': 'WILD FLAKE probio', 'numbers': ['421',]},
@@ -64,14 +64,24 @@ var vue_example = new Vue({
               {'name': '700番賞(7000円)', 'numbers': ['700',], "val": 7000},
              ],
   },
-
+  created: function () {
+    this.check();
+  },
   methods: {
+
     validate: function () { 
       this.myTicket = this.myTicket.replace(/[^,0-9]/g, '')
     }, 
     check: function () {
       let en = 0;
-      let tickets = this.myTicket.split(',');
+      let tickets = [];
+      if (this.myTicket == '') {
+        for(let i = 1;i <= 700;i++) {
+          tickets.push(('00' + i).slice(-3));
+        }
+      } else {
+        tickets = this.myTicket.split(',');
+      }
       this.message = "";
       for (let i in tickets) {
         if (tickets[i].length != 3) {
@@ -96,7 +106,7 @@ var vue_example = new Vue({
         }
       }
       if (en != 0) {
-        this.message += 'トータル:' + en + '円!'
+        this.message += 'トータル: ' + en + ' 円!'
       }
     },
   },
