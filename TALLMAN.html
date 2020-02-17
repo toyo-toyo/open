@@ -1,0 +1,106 @@
+<html>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js'></script>
+<body>
+
+<div id="vue_example"></div>
+
+<script>
+var vue_example = new Vue({
+  el: '#vue_example',
+
+  template: `<div>
+    <span>3桁の数値をカンマ区切りで入力し、チェックボタンを押下してください。</span>
+    <input @input="validate" v-model="myTicket" style="width:80%" />
+    <button v-on:click="check()">チェック</button>
+    <div v-html="message"></div>
+    </div>`,
+
+  data: {
+    message: '',
+    myTicket: '096,097,098,104,110,123,141,178,186,187,265,300,336,337,452,470,496,503,509,660',
+//    myTicket: '',
+    lottery: [
+              {'name': 'WILD FLAKE probio ミニ', 'numbers': ['513',]},
+              {'name': 'WILD FLAKE probio', 'numbers': ['421',]},
+              {'name': 'SILENT FLOW SLIM', 'numbers': ['485','585','685',]},
+              {'name': '観賞魚用タイマーSMART TIME', 'numbers': ['248',]},
+              {'name': 'ebi210', 'numbers': ['.45','.40','.47','.43','.44','.95','.90','.97','.93','.94','.25','.20','.27','.23','.24','.35','.30','.37','.33','.34',]},
+              {'name': '秘伝の餌', 'numbers': ['.97','407','244','105',]},
+              {'name': 'Bafi', 'numbers': ['347','064','002','105',]},
+              {'name': 'スターターテストキット', 'numbers': ['473','214',]},
+              {'name': 'プロクラッツェン', 'numbers': ['654','154','554',]},
+              {'name': 'バイオスコール淡水', 'numbers': ['051','151','251','451','551','651',]},
+              {'name': 'バイオスコール海水', 'numbers': ['085','185','285','485','585','685',]},
+              {'name': 'SHELL2', 'numbers': ['321',]},
+              {'name': 'スクレーパー', 'numbers': ['461','025',]},
+              {'name': 'フラッシュライト', 'numbers': ['376',]},
+              {'name': 'バイオダイジェスト', 'numbers': ['015',]},
+              {'name': 'トールマンブリード', 'numbers': ['604',]},
+              {'name': 'ショートマンブリード', 'numbers': ['230','502',]},
+              {'name': 'Aoriブリード', 'numbers': ['274',]},
+              {'name': 'N&Nブリード', 'numbers': ['331',]},
+              {'name': '山本賞', 'numbers': ['128',]},
+              {'name': '篠遠賞', 'numbers': ['167',]},
+              {'name': '山田賞', 'numbers': ['210',]},
+              {'name': 'スーパーバイコム78', 'numbers': ['007',]},
+              {'name': 'リバースフレッシュ', 'numbers': ['120','102',]},
+              {'name': 'リバースマリン', 'numbers': ['344',]},
+              {'name': 'サンゴ帽子', 'numbers': ['059','359','059',]},
+              {'name': 'サンゴ靴下', 'numbers': ['591','191','391',]},
+              {'name': '002', 'numbers': ['541',]},
+              {'name': '003', 'numbers': ['206',]},
+              {'name': '004', 'numbers': ['028',]},
+              {'name': '005', 'numbers': ['204',]},
+              {'name': '006', 'numbers': ['315',]},
+              {'name': '007', 'numbers': ['327',]},
+              {'name': 'プロシザーズショートストレート', 'numbers': ['184',]},
+              {'name': 'プロシザーズショートカーブ', 'numbers': ['047',]},
+              {'name': 'ハーバルエース', 'numbers': ['068','168','268','468','568',]},
+              {'name': '5等(300円)', 'numbers': ['..0','..6','..7',], "val": 300},
+              {'name': '4等(1000円)', 'numbers': ['.97','511','411','611',], "val": 1000},
+              {'name': '3等(5000円)', 'numbers': ['223','084','480',], "val": 5000},
+              {'name': '2等(10000円)', 'numbers': ['614','616',], "val": 10000},
+              {'name': '1等(110000円)', 'numbers': ['615',], "val": 110000},
+              {'name': '700番賞(7000円)', 'numbers': ['700',], "val": 7000},
+             ],
+  },
+
+  methods: {
+    validate: function () { 
+      this.myTicket = this.myTicket.replace(/[^,0-9]/g, '')
+    }, 
+    check: function () {
+      let en = 0;
+      let tickets = this.myTicket.split(',');
+      this.message = "";
+      for (let i in tickets) {
+        if (tickets[i].length != 3) {
+          this.message = '3桁の数値を,区切りで入力してください';
+          return;
+        } 
+        let gets = [];
+        for (let j in this.lottery) {
+          for (let k in this.lottery[j].numbers) {
+            if (tickets[i].match(this.lottery[j].numbers[k]) != null ){
+              gets.push(this.lottery[j].name)
+              if (this.lottery[j].val != null) {
+                en += this.lottery[j].val
+              }
+            }
+          }
+        }
+        if (gets.length != 0) {
+          this.message += '【' + tickets[i] + '】: ' + gets + '<br>';
+        } else {
+          this.message += '【' + tickets[i] + '】: はずれ<br>';
+        }
+      }
+      if (en != 0) {
+        this.message += 'トータル:' + en + '円!'
+      }
+    },
+  },
+})
+</script>
+</body>
+</html>
