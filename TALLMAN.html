@@ -1,7 +1,7 @@
 <html>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js'></script>
 <head>
-<title>TALLMANくじ結果</title>
+<title>トールマン2周年記念クジ結果</title>
 </head>
 <body>
 
@@ -12,7 +12,7 @@ var vue_example = new Vue({
   el: '#vue_example',
 
   template: `<div>
-    <h2>TALLMANくじ結果</h2>
+    <h2>トールマン2周年記念クジ結果</h2>
     <span>絞り込み。3桁の数値をカンマ区切りで入力し、チェックボタンを押下してください。</span>
     <input @input="validate" v-on:keyup.enter="check()" v-model="myTicket" style="width:80%" />
     <button v-on:click="check()">チェック</button>
