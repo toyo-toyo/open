@@ -97,7 +97,7 @@
             <p class="modal-message">リセット方法を選択してください。この操作は取り消せません。</p>
             <div class="modal-actions">
                 <button type="button" class="btn btn-secondary" id="btn-reset-cancel">キャンセル</button>
-                <button type="button" class="btn btn-warning" id="btn-reset-keep-names">名前だけ残してリセット</button>
+                <button type="button" class="btn btn-warning" id="btn-reset-keep-names">名前残しでリセット</button>
                 <button type="button" class="btn btn-danger" id="btn-reset-all">完全にリセット</button>
             </div>
         </div>
@@ -745,6 +745,8 @@ input[type="number"] {
                     reports: Array(10).fill(null).map(() => ({ targetId: "", isWolf: false }))
                 });
             }
+            elFreeMemo.value = "";
+            state.freeMemo = "";
             state.deaths = {
                 voted: Array(10).fill(""),
                 bitten: Array(10).fill("")
